@@ -21,4 +21,37 @@ public class TaskService {
         task.setDescription(task.getDescription());
         return taskRepository.save(task);
     }
+
+    public @Nullable Task updateTask(Task task) {
+        Optional<Task> updateData = taskRepository.findById(task.getId());
+        if(updateData.isPresent()){
+            Task task1 = updateData.get();
+            task1.setTitle(task.getTitle());
+            task1.setDescription(StringUtils.hasLength(task.getDescription()) ? task.getDescription() : task1.getDescription());
+            task1.setCompleted(task.getCompleted());
+            return taskRepository.save(task1);
+        }
+        return null;
+    }
+
+
+    public boolean deleteTask(String id) {
+         taskRepository.deleteById(id);
+         return true;
+    }
+
+    public @Nullable List<Task> getTasks(Boolean completed) {
+        return taskRepository.getByCompleted(completed);
+    }
+
+    public @Nullable String updateFields(String id, Boolean completed) {
+        Optional<Task> existingTaskData = taskRepository.findById(id);
+        if(existingTaskData.isPresent()) {
+            Task task = existingTaskData.get();
+            task.setCompleted(completed);
+            taskRepository.save(task);
+        }
+
+        return "Status Got Updated SuccessFully";
+    }
 }
