@@ -15,7 +15,7 @@ import java.time.LocalDateTime;
 public class Task {
 
     @Id
-    private String id;
+    private Integer id;
     private String title;
     private String description;
     private Boolean completed;
