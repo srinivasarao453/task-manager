@@ -39,4 +39,5 @@ public class TaskController {
     public ResponseEntity<?> updateField(@PathVariable String id,@RequestParam Boolean completed){
         return ResponseEntity.ok(taskService.updateFields(id,completed));
     }
+
 }
